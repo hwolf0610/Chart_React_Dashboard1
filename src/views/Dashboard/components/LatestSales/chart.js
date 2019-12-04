@@ -1,17 +1,17 @@
 import palette from 'theme/palette';
 
 export const data = {
-  labels: ['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug'],
+  labels: ['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug', '6 Aug', '6 Aug', '6 Aug', '6 Aug', '6 Aug', '6 Aug', '6 Aug', '6 Aug', '6 Aug'],
   datasets: [
     {
       label: 'This year',
       backgroundColor: palette.primary.main,
-      data: [18, 5, 19, 27, 29, 19, 20]
+      data: [18, 5, 19, 27, 29, 19, 20, 29, 19, 20, 29, 19, 20, 29, 19, 20]
     },
     {
       label: 'Last year',
       backgroundColor: palette.neutral,
-      data: [11, 20, 12, 29, 30, 25, 13]
+      data: [11, 20, 12, 29, 30, 25, 13, 20, 12, 29, 20, 12, 29, 20, 12, 29]
     }
   ]
 };

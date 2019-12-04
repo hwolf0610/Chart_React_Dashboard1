@@ -39,7 +39,7 @@ const UsersToolbar = props => {
       className={clsx(classes.root, className)}
     >
       <div className={classes.row}>
-        <span className={classes.spacer} />
+        {/* <span className={classes.spacer} />
         <Button className={classes.importButton}>Import</Button>
         <Button className={classes.exportButton}>Export</Button>
         <Button
@@ -47,14 +47,14 @@ const UsersToolbar = props => {
           variant="contained"
         >
           Add user
-        </Button>
+        </Button> */}
       </div>
-      <div className={classes.row}>
+      {/* <div className={classes.row}>
         <SearchInput
           className={classes.searchInput}
           placeholder="Search user"
         />
-      </div>
+      </div> */}
     </div>
   );
 };

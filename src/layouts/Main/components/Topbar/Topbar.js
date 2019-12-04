@@ -36,12 +36,12 @@ const Topbar = props => {
         <RouterLink to="/">
           <img
             alt="Logo"
-            src="/images/logos/logo--white.svg"
+            src="/images/logos/refer.png"
           />
         </RouterLink>
         <div className={classes.flexGrow} />
         <Hidden mdDown>
-          <IconButton color="inherit">
+          {/* <IconButton color="inherit">
             <Badge
               badgeContent={notifications.length}
               color="primary"
@@ -49,13 +49,16 @@ const Topbar = props => {
             >
               <NotificationsIcon />
             </Badge>
-          </IconButton>
-          <IconButton
-            className={classes.signOutButton}
-            color="inherit"
-          >
-            <InputIcon />
-          </IconButton>
+          </IconButton> */}
+          <RouterLink to="/">
+            <IconButton
+              className={classes.signOutButton}
+              color="inherit"
+            >
+              <InputIcon />
+            </IconButton>
+          </RouterLink>
+
         </Hidden>
         <Hidden lgUp>
           <IconButton

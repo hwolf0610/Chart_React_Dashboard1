@@ -39,8 +39,8 @@ const ProductList = () => {
             <Grid
               item
               key={product.id}
-              lg={4}
-              md={6}
+              lg={12}
+              md={12}
               xs={12}
             >
               <ProductCard product={product} />
@@ -48,7 +48,7 @@ const ProductList = () => {
           ))}
         </Grid>
       </div>
-      <div className={classes.pagination}>
+      {/* <div className={classes.pagination}>
         <Typography variant="caption">1-6 of 20</Typography>
         <IconButton>
           <ChevronLeftIcon />
@@ -56,7 +56,7 @@ const ProductList = () => {
         <IconButton>
           <ChevronRightIcon />
         </IconButton>
-      </div>
+      </div> */}
     </div>
   );
 };

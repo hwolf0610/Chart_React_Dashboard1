@@ -23,7 +23,7 @@ const Routes = () => {
       <Redirect
         exact
         from="/"
-        to="/dashboard"
+        to="/sign-in"
       />
       <RouteWithLayout
         component={DashboardView}
@@ -37,13 +37,13 @@ const Routes = () => {
         layout={MainLayout}
         path="/users"
       />
-      <RouteWithLayout
+       <RouteWithLayout
         component={ProductListView}
         exact
         layout={MainLayout}
         path="/products"
       />
-      <RouteWithLayout
+      {/*<RouteWithLayout
         component={TypographyView}
         exact
         layout={MainLayout}
@@ -54,7 +54,7 @@ const Routes = () => {
         exact
         layout={MainLayout}
         path="/icons"
-      />
+      /> 
       <RouteWithLayout
         component={AccountView}
         exact
@@ -66,7 +66,7 @@ const Routes = () => {
         exact
         layout={MainLayout}
         path="/settings"
-      />
+      />*/}
       <RouteWithLayout
         component={SignUpView}
         exact

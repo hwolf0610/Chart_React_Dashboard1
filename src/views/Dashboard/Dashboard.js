@@ -21,7 +21,11 @@ const useStyles = makeStyles(theme => ({
 
 const Dashboard = () => {
   const classes = useStyles();
+  if (localStorage.getItem("key") == 0 ) {
+    window.location.href = "/sign-in";
+} else {
 
+}
   return (
     <div className={classes.root}>
       <Grid
@@ -82,7 +86,7 @@ const Dashboard = () => {
         >
           <UsersByDevice />
         </Grid>
-        <Grid
+        {/* <Grid
           item
           lg={4}
           md={6}
@@ -99,7 +103,7 @@ const Dashboard = () => {
           xs={12}
         >
           <LatestOrders />
-        </Grid>
+        </Grid> */}
       </Grid>
     </div>
   );

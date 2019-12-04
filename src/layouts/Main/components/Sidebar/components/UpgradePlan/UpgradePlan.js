@@ -49,23 +49,24 @@ const UpgradePlan = props => {
           gutterBottom
           variant="h6"
         >
-          Upgrade to PRO
+          About Author
         </Typography>
         <Typography
           align="center"
           variant="body2"
         >
-          Upgrade to Devias Kit PRO and get even more components
+         Name:Our Team<br/>
+         Contact:hwolf0610@outlook.com<br/>
         </Typography>
       </div>
       <div className={classes.actions}>
         <Button
           color="primary"
           component="a"
-          href="https://devias.io/products/devias-kit-pro"
+          href="https://hwolf0610.wordpress.com/"
           variant="contained"
         >
-          Upgrade
+          Go To Me
         </Button>
       </div>
     </div>
