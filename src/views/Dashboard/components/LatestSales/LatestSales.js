@@ -58,7 +58,7 @@ export default class Dashboard extends React.Component {
         maintainAspectRatio: false,
         animation: false,
         legend: { display: false },
-        cornerRadius: 20,
+        cornerRadius: 5,
         tooltips: {
           enabled: true,
           mode: 'index',
@@ -74,8 +74,8 @@ export default class Dashboard extends React.Component {
         scales: {
           xAxes: [
             {
-              barThickness: 12,
-              maxBarThickness: 10,
+              barThickness: 15,
+              maxBarThickness: 15,
               barPercentage: 0.5,
               categoryPercentage: 0.5,
               ticks: {
@@ -219,7 +219,7 @@ export default class Dashboard extends React.Component {
               })}
 
           </Select>
-          <FormHelperText>Some important helper text</FormHelperText>
+          <FormHelperText>please select month</FormHelperText>
         </FormControl>
         <Button onClick={this.update_data_bar} style={{ backgroundColor: 'green', color:'white',border: '1px solid #e7e9eb' }}>Change</Button>
         <Divider />
