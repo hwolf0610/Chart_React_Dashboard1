@@ -171,14 +171,14 @@ export default class ProductCard extends React.Component {
   } 
   render() {
     return (
-      <div>
+      <div >
         <Grid
           container
           spacing={3}
         >
           <Grid
             item
-            md={6}
+            md={4}
             xs={12}
           >
             <TextField
@@ -231,27 +231,10 @@ export default class ProductCard extends React.Component {
               onChange={this.handleChange}
             /> */}
           </Grid>
+          
           <Grid
             item
-            md={6}
-            xs={12}
-          >
-            {/* <TextField
-              fullWidth
-              label="Name"
-              margin="dense"
-              name="lastName"
-              onChange={this.updatename}
-              required
-              value={this.state.name}
-              variant="outlined"
-            /> */}
-            {/* <ReactSelectMaterialUi style={{ width: 100 }}   options={this.state.showname} onChange={this.updatename} /> */}
-            <SingleSelect value={this.state.name} placeholder="Select a continent" options={this.state.showname} onChange={this.updatename} />
-          </Grid>
-          <Grid
-            item
-            md={6}
+            md={4}
             xs={12}
           >
             <TextField
@@ -267,7 +250,7 @@ export default class ProductCard extends React.Component {
           </Grid>
           <Grid
             item
-            md={6}
+            md={4}
             xs={12}
           >
             <TextField
@@ -281,7 +264,24 @@ export default class ProductCard extends React.Component {
               variant="outlined"
             />
           </Grid>
-
+          <Grid
+            item
+            md={12}
+            xs={12}
+          > 
+            {/* <TextField
+              fullWidth
+              label="Name"
+              margin="dense"
+              name="lastName"
+              onChange={this.updatename}
+              required
+              value={this.state.name}
+              variant="outlined"
+            /> */}
+            {/* <ReactSelectMaterialUi style={{ width: 100 }}   options={this.state.showname} onChange={this.updatename} /> */}
+            <SingleSelect value={this.state.name} placeholder="Select a continent" options={this.state.showname} onChange={this.updatename} />
+          </Grid>
 
         </Grid>
 

@@ -57,7 +57,11 @@ const Sidebar = props => {
       title: 'Quanlity',
       href: '/products',
       icon: <ShoppingBasketIcon />
-    }
+    },{
+        title: 'Plan',
+        href: '/typography',
+        icon: <TextFieldsIcon />
+      }
     // {
     //   title: 'Authentication',
     //   href: '/sign-in',

@@ -17,7 +17,7 @@ export default class Budget extends React.Component {
   }
   componentDidMount = () => {
 
-    axios.post('http://localhost:3003/todos/getchart')
+    axios.post('http://localhost:3003/todos/getJobchart')
       .then((res) => {
 
         let { dataone, currentdata, dataList, currentmonth, currentyear } = this.state

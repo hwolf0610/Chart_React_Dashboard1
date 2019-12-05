@@ -108,6 +108,10 @@ export default class Dashboard extends React.Component {
         }
       },
       datalist: [],
+      dataplanlist: [],
+      datalabel: [],
+      dataprice: [],
+      dataplan: [],
       showmonth: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12',],
       showyear: ['2012','2013','2014','2015','2016','2017','2018','2019','2020','2021','2022'],
        
@@ -115,10 +119,10 @@ export default class Dashboard extends React.Component {
   }
   componentDidMount = () => {
 
-    axios.post('http://localhost:3003/todos/getchart')
+    axios.post('http://localhost:3003/todos/getJobchart')
       .then((res) => {
 
-        let { dataone, dataBar, dataList, currentmonth, currentyear } = this.state
+        let { dataList } = this.state
 
         if (res.data.length > 0) {
           dataList = res.data
@@ -130,24 +134,37 @@ export default class Dashboard extends React.Component {
       }).catch((error) => {
         console.log(error)
       });
+
+      axios.post('http://localhost:3003/todos/getPlanchart')
+      .then((res) => {
+
+        let { dataplanlist } = this.state
+
+        if (res.data.length > 0) {
+          dataplanlist = res.data
+          this.setState({ dataplanlist })
+          this.update_data_plan_bar()
+          console.log("datalist:",dataplanlist)
+        }
+        console.log("array list : ", dataplanlist)
+      }).catch((error) => {
+        console.log(error)
+      });
+
   }
   updateYearState = (e) => { this.setState({ currentyear: e.target.value }) }
   updateMonthState = (e) => { this.setState({ currentmonth: e.target.value }) }
   update_data_bar = () => {
-    let { currentmonth, currentyear, dataList, data } = this.state
+    let { currentmonth, currentyear, dataList, data,datalabel,dataprice, dataplan } = this.state
     let gainObject = {}
-    let barData1 = []
-    let barData2 = []
-    let labels = []
-    let top=0
+    let labels=[]
+    let bar1=[]
     dataList.map(item => {
       if (item.month == currentmonth && item.year == currentyear) {
         if (gainObject[item.name]) {
           gainObject[item.name] += item.price * 1.0
         } else {
           gainObject[item.name] = item.price * 1.0
-
-
         }
       } else {
       }
@@ -157,14 +174,48 @@ export default class Dashboard extends React.Component {
     let keys = Object.keys(gainObject);
     for (var index = 0; index < keys.length; index++) {
       labels.push(keys[index])
-      barData1.push(gainObject[keys[index]])
-      barData2.push(3000)
+      bar1.push(gainObject[keys[index]])
     }
     
     
     data.labels = labels
-    data.datasets[0].data = barData1
-    data.datasets[1].data = barData2
+    data.datasets[0].data = bar1
+    datalabel=labels
+    dataprice=bar1    
+    // this.setState({ data, currentmonth })
+    this.setState({ data,datalabel,dataprice })
+
+  }
+  update_data_plan_bar = () => {
+    let { currentmonth, currentyear, dataplanlist, data,datalabel,dataprice, dataplan } = this.state
+    let gainObject = {} 
+    let bar2=[]
+    dataplanlist.map(item => {
+      if (item.month == currentmonth && item.year == currentyear) {
+        if (gainObject[item.name]) {
+          gainObject[item.name] += item.price * 1.0
+        } else {
+          gainObject[item.name] = item.price * 1.0
+        }
+      } else {
+      }
+    })
+
+    
+    datalabel.map(item => {
+          console.log("plan view:" + item);
+          bar2.push(gainObject[item]);
+      });
+    
+    console.log("gainObject ;", gainObject)
+    console.log("getObject values: ", gainObject["admin"]);
+    /*
+    let keys = Object.keys(gainObject);
+    for (var index = 0; index < keys.length; index++) {
+      bar2.push(gainObject[keys[index]])
+    } */  
+    data.datasets[1].data = bar2
+    dataplan=bar2
     // this.setState({ data, currentmonth })
     this.setState({ data })
 

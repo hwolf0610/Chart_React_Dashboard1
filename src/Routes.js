@@ -43,13 +43,13 @@ const Routes = () => {
         layout={MainLayout}
         path="/products"
       />
-      {/*<RouteWithLayout
+      <RouteWithLayout
         component={TypographyView}
         exact
         layout={MainLayout}
         path="/typography"
       />
-      <RouteWithLayout
+    {/* <RouteWithLayout
         component={IconsView}
         exact
         layout={MainLayout}

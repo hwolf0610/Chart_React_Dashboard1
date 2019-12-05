@@ -42,9 +42,8 @@ export default class UserList extends React.Component {
     }
     if (localStorage.getItem("key") == 0 || localStorage.getItem("key") == 1) {
       window.location.href = "/sign-in";
-  } else {
+  } else {  }
 
-  }
   }
   componentDidMount = () => {
     axios.post('http://localhost:3003/todos/show')
@@ -107,7 +106,7 @@ export default class UserList extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{padding:'20px'}}>
         <Grid
           container
           spacing={3}
@@ -155,7 +154,7 @@ export default class UserList extends React.Component {
               InputLabelProps={{
                 shrink: true,
               }}
-              style={{widt:'350px'}}
+              style={{width:'200px'}}
             />
           </Grid>
           <Grid

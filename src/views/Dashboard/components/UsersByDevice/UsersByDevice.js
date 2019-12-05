@@ -1,5 +1,6 @@
 import React from 'react';
-import { CardContent} from '@material-ui/core';
+import { CardContent,TextField,Grid,
+  Button} from '@material-ui/core';
 import axios from "axios";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,6 +8,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import ReactDOM from "react-dom";
+
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import Pagination from "material-ui-flat-pagination";
@@ -18,6 +20,11 @@ export default class ProductCard extends React.Component {
     this.state = {
       dataList: [],
       offset: 0,
+      name: '',
+      month: '',
+      year: '',
+      price: '',
+      detail: '',
     }
   }
 
@@ -34,7 +41,39 @@ export default class ProductCard extends React.Component {
       }).catch((error) => {
         console.log(error)
       });
+
   }
+  onSignup = () => {
+      let body = { name: localStorage.getItem("name"), month: this.state.month, year: this.state.year, detail: this.state.detail, price: this.state.price}
+      axios.post('http://192.168.1.190:3003/todos/addplan', body)
+        .then((res) => {
+          console.log(res.data)
+          alert("Successful!!");
+          window.location.reload();
+        }).catch((error) => {
+          console.log(error)
+        });   
+    this.setState({
+      name: '',
+      month: '',
+      year: '',
+      price: '',
+      detail: '',
+    })
+  }
+  setdate = (e) => {
+    this.setState({ date: e.target.value })
+    let setday = e.target.value
+    let mid = setday.split('-')
+    // this.setState({ day: mid[2] })
+    this.setState({ month: mid[1] })
+    this.setState({ year: mid[0] })
+
+    console.log("date:", this.state.date)
+  }
+  updateplan = (e) => { this.setState({ price: e.target.value }) }
+  updatedetail = (e) => { this.setState({ detail: e.target.value }) }
+
   handleClick(offset) {
     this.setState({ offset });
     console.log("offset:", offset)
@@ -75,8 +114,8 @@ export default class ProductCard extends React.Component {
               {
                 //  this.updatetable
                 this.state.dataList.map((item, index) => {
-                  let start = this.state.offset * 20 - 1
-                  let end = this.state.offset * 20 + 20
+                  let start = this.state.offset * 15 - 1
+                  let end = this.state.offset * 15 + 15
                   while (start < index && index < end) {
                     return (
                       <TableRow
@@ -119,7 +158,89 @@ export default class ProductCard extends React.Component {
             onClick={(e, offset) => this.handleClick(offset)}
           />
         </MuiThemeProvider>
-
+       
+        {/* <Grid
+          container
+          spacing={3}
+        >
+          <Grid
+            item
+            md={12}
+            xs={12}
+          >
+            {localStorage.getItem("name")}
+          </Grid>
+          <Grid
+            item
+            md={6}
+            xs={6}
+          >
+            <TextField
+              id="date"
+              label="Date"
+              type="date"
+              onChange={this.setdate}
+              defaultValue={this.state.date}
+              // className={classes.textField}
+              InputLabelProps={{
+                shrink: true,
+              }} 
+            />
+          </Grid>
+          <Grid
+            item
+            md={6}
+            xs={6}
+          >
+            <TextField
+              fullWidth
+              label="plan price"
+              margin="dense"
+              name="email"
+              type="number"
+              onChange={this.updateplan}
+              required
+              value={this.state.price}
+              variant="outlined"
+              helperText="Please input confirm"
+            />
+          </Grid>
+          <Grid
+            item
+            md={12}
+            xs={12}
+          >
+            <TextField
+              fullWidth
+              label="Detail"
+              margin="dense"
+              name="email"
+              onChange={this.updatedetail}
+              required
+              value={this.state.detail}
+              variant="outlined"
+              helperText="Please input confirm"
+            />
+            
+          </Grid>
+          <Grid
+            item
+            md={12}
+            xs={12}
+          >
+             <Button
+            color="primary"
+            variant="contained"
+            onClick={this.onSignup}
+          >
+            Send my Plan
+          </Button>
+          </Grid>
+        </Grid>
+         */}
+         
+       
+        
         </CardContent>
       </div>
     );
