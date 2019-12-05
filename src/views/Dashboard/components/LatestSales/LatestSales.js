@@ -42,7 +42,7 @@ export default class Dashboard extends React.Component {
         labels: [],
         datasets: [
           {
-            label: 'plan',
+            label: 'Quanlity',
             backgroundColor: palette.primary.main,
             data: []
           },
@@ -158,7 +158,7 @@ export default class Dashboard extends React.Component {
     for (var index = 0; index < keys.length; index++) {
       labels.push(keys[index])
       barData1.push(gainObject[keys[index]])
-      barData2.push(gainObject[keys[index]])
+      barData2.push(3000)
     }
     
     
