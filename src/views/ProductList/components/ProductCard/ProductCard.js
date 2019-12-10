@@ -258,6 +258,7 @@ export default class ProductCard extends React.Component {
               label="Price"
               margin="dense"
               name="phone"
+              required
               onChange={this.updateprice}
               type="number"
               value={this.state.price}
@@ -280,7 +281,7 @@ export default class ProductCard extends React.Component {
               variant="outlined"
             /> */}
             {/* <ReactSelectMaterialUi style={{ width: 100 }}   options={this.state.showname} onChange={this.updatename} /> */}
-            <SingleSelect value={this.state.name} placeholder="Select a continent" options={this.state.showname} onChange={this.updatename} />
+            <SingleSelect value={this.state.name} placeholder="Select a name" required options={this.state.showname} onChange={this.updatename} />
           </Grid>
 
         </Grid>

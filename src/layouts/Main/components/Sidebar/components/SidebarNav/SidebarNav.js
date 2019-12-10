@@ -60,7 +60,8 @@ const SidebarNav = props => {
       className={clsx(classes.root, className)}
     >
       {pages.map(page => (
-        <ListItem
+
+        (page.role.includes(localStorage.getItem('key')))&&<ListItem
           className={classes.item}
           disableGutters
           key={page.title}
@@ -75,6 +76,7 @@ const SidebarNav = props => {
             {page.title}
           </Button>
         </ListItem>
+
       ))}
     </List>
   );

@@ -38,6 +38,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Sidebar = props => {
+
   const { open, variant, onClose, className, ...rest } = props;
 
   const classes = useStyles();
@@ -46,20 +47,24 @@ const Sidebar = props => {
     {
       title: 'Dashboard',
       href: '/dashboard',
+      role:['1', '2'],
       icon: <DashboardIcon />
     },
     {
       title: 'Users',
       href: '/users',
+      role:['2'],
       icon: <PeopleIcon />
     },
     {
       title: 'Quanlity',
       href: '/products',
+      role:['2'],
       icon: <ShoppingBasketIcon />
     },{
         title: 'Plan',
         href: '/typography',
+        role:['2'],
         icon: <TextFieldsIcon />
       }
     // {
@@ -103,6 +108,15 @@ const Sidebar = props => {
       >
         <Profile />
         <Divider className={classes.divider} />
+        {/* {
+          if (localStorage.getItem("key") == 0 || localStorage.getItem("key") == 1) {
+           return( <div>
+            </div>);
+          } else {
+      
+          }
+        } */}
+
         <SidebarNav
           className={classes.nav}
           pages={pages}

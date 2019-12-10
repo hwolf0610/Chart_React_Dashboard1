@@ -29,6 +29,7 @@ export default class UserList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      userid: '',
       name: '',
       birthday: '',
       address: '',
@@ -39,10 +40,11 @@ export default class UserList extends React.Component {
       dataList: [],
       dataname: [],
       offset: 0,
+      buttontext: 'ADD User',
     }
     if (localStorage.getItem("key") == 0 || localStorage.getItem("key") == 1) {
       window.location.href = "/sign-in";
-  } else {  }
+    } else { }
 
   }
   componentDidMount = () => {
@@ -61,29 +63,46 @@ export default class UserList extends React.Component {
   }
 
   onSignup = () => {
-    if (this.state.password === this.state.confirm) {
-      let body = { name: this.state.name, birthday: this.state.birthday, address: this.state.address, email: this.state.email, password: this.state.password, flag: "2" }
-      axios.post('http://192.168.1.190:3003/todos/add', body)
-        .then((res) => {
-          console.log(res.data)
-          alert("Successful!!");
-          window.location.reload();
-        }).catch((error) => {
-          console.log(error)
-        });
+    if (this.state.buttontext == "ADD User") {
+      if (this.state.password === this.state.confirm) {
+        let body = { name: this.state.name, birthday: this.state.birthday, address: this.state.address, email: this.state.email, password: this.state.password, flag: "2" }
+        axios.post('http://192.168.1.190:3003/todos/add', body)
+          .then((res) => {
+            console.log(res.data)
+            alert("Successful!!");
+            window.location.reload();
+          }).catch((error) => {
+            console.log(error)
+          });
+      } else {
+        alert("not same password with confirm!");
+      }
+
+      this.setState({
+        name: '',
+        birthday: '',
+        address: '',
+        email: '',
+        password: '',
+        confirm: '',
+        flag: '',
+
+      })
     } else {
-      alert("not same password with confirm!");
+      let id = this.state.userid
+      let body = { name: this.state.name, birthday: this.state.birthday, address: this.state.address, email: this.state.email, password: this.state.password, flag: "2" }
+      console.log("body:",body)
+      axios.post('http://192.168.1.190:3003/todos/userupdate/' + id, body)
+          .then((res) => {
+            console.log(res.data)
+            alert("Successful!!");
+            window.location.reload();
+          }).catch((error) => {
+            console.log(error)
+          });
     }
 
-    this.setState({
-      name: '',
-      birthday: '',
-      address: '',
-      email: '',
-      password: '',
-      confirm: '',
-      flag: '',
-    })
+
   }
   delete = (data) => {
     alert("item clicked : " + data)
@@ -97,6 +116,27 @@ export default class UserList extends React.Component {
         console.log(error)
       });
   }
+  updateitem = (dataid, dataname, databirthday, dataemail, dataaddress, datapassword) => {
+    this.setState({ name: dataname })
+    this.setState({ birthday: databirthday })
+    this.setState({ address: dataaddress })
+    this.setState({ email: dataemail })
+    this.setState({ password: datapassword })
+    this.setState({ confirm: datapassword })
+    this.setState({ buttontext: "Update" })
+    this.setState({ userid: dataid })
+    
+    // alert("item clicked : " + data)
+    // let id = data
+    // axios.delete('http://192.168.1.190:3003/todos/userdelete/' + id)
+    //   .then((res) => {
+    //     console.log(res.data)
+    //     alert("Successful_del!!");
+    //     window.location.reload();
+    //   }).catch((error) => {
+    //     console.log(error)
+    //   });
+  }
   updatename = (e) => { this.setState({ name: e.target.value }) }
   updatebirthday = (e) => { this.setState({ birthday: e.target.value }) }
   updateaddress = (e) => { this.setState({ address: e.target.value }) }
@@ -106,7 +146,7 @@ export default class UserList extends React.Component {
 
   render() {
     return (
-      <div style={{padding:'20px'}}>
+      <div style={{ padding: '20px' }}>
         <Grid
           container
           spacing={3}
@@ -154,24 +194,7 @@ export default class UserList extends React.Component {
               InputLabelProps={{
                 shrink: true,
               }}
-              style={{width:'200px'}}
-            />
-          </Grid>
-          <Grid
-            item
-            md={4}
-            xs={12}
-          >
-            <TextField
-              fullWidth
-              label="Address"
-              margin="dense"
-              name="email"
-              onChange={this.updateaddress}
-              required
-              value={this.state.address}
-              variant="outlined"
-              helperText="Please input confirm"
+              style={{ width: '200px' }}
             />
           </Grid>
           <Grid
@@ -183,10 +206,28 @@ export default class UserList extends React.Component {
               fullWidth
               label="Email"
               margin="dense"
-              name="phone"
+              name="email"
               onChange={this.updateemail}
-              type="email"
+              required
               value={this.state.email}
+              variant="outlined"
+              helperText="Please input confirm"
+            />
+          </Grid>
+          <Grid
+            item
+            md={4}
+            xs={12}
+          >
+            <TextField
+              fullWidth
+              label="Address"
+              margin="dense"
+              name="phone"
+
+              onChange={this.updateaddress}
+              type="email"
+              value={this.state.address}
               variant="outlined"
             />
           </Grid>
@@ -234,7 +275,7 @@ export default class UserList extends React.Component {
             variant="contained"
             onClick={this.onSignup}
           >
-            ADD User
+            {this.state.buttontext}
           </Button>
         </CardActions>
         <Table
@@ -265,6 +306,9 @@ export default class UserList extends React.Component {
                 <span>Password</span>
               </TableCell>
               <TableCell padding="checkbox">
+                <span>Update</span>
+              </TableCell>
+              <TableCell padding="checkbox">
                 <span>Delete</span>
               </TableCell>
             </TableRow>
@@ -277,38 +321,45 @@ export default class UserList extends React.Component {
                 let start = this.state.offset * 10 - 1
                 let end = this.state.offset * 10 + 10
                 while (start < index && index < end) {
-                return (
-                  <TableRow
-                    hover
-                    tabIndex={-1}
-                    key={index}
-                  >
-                    <TableCell padding="checkbox">
-                      <span>{index + 1}</span>
-                    </TableCell>
-                    <TableCell padding="checkbox">
-                      <span>{item.name}</span>
-                    </TableCell>
-                    <TableCell padding="checkbox">
-                      <span>{item.birthday}</span>
-                    </TableCell>
-                    <TableCell padding="checkbox">
-                      <span>{item.address}</span>
-                    </TableCell>
-                    <TableCell padding="checkbox">
-                      <span>{item.email}</span>
-                    </TableCell>
-                    <TableCell padding="checkbox">
-                      <span>{item.password}</span>
-                    </TableCell>
-                    <TableCell padding="checkbox">
-                      <Button
-                        onClick={this.delete.bind(this, item._id)}
-                      >Delete
-                                                        </Button>
-                    </TableCell>
-                  </TableRow>
-                )}
+                  return (
+                    <TableRow
+                      hover
+                      tabIndex={-1}
+                      key={index}
+                    >
+                      <TableCell padding="checkbox">
+                        <span>{index + 1}</span>
+                      </TableCell>
+                      <TableCell padding="checkbox">
+                        <span>{item.name}</span>
+                      </TableCell>
+                      <TableCell padding="checkbox">
+                        <span>{item.birthday}</span>
+                      </TableCell>
+                      <TableCell padding="checkbox">
+                        <span>{item.address}</span>
+                      </TableCell>
+                      <TableCell padding="checkbox">
+                        <span>{item.email}</span>
+                      </TableCell>
+                      <TableCell padding="checkbox">
+                        <span>{item.password}</span>
+                      </TableCell>
+                      <TableCell padding="checkbox">
+                        <Button
+                          onClick={this.updateitem.bind(this, item._id, item.name, item.birthday, item.email, item.address, item.password)}
+                        >Update
+                       </Button>
+                      </TableCell>
+                      <TableCell padding="checkbox">
+                        <Button
+                          onClick={this.delete.bind(this, item._id)}
+                        >Delete
+                       </Button>
+                      </TableCell>
+                    </TableRow>
+                  )
+                }
               })
             }
 

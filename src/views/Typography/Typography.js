@@ -168,7 +168,7 @@ export default class Typography extends React.Component {
             md={4}
             xs={12}
           >
-            <SingleSelect value={this.state.name} placeholder="Select a continent" options={this.state.showname} onChange={this.updatename} />
+            <SingleSelect value={this.state.name} placeholder="Select a name" options={this.state.showname} onChange={this.updatename} />
             
             {/* <TextField
               fullWidth
